@@ -5,7 +5,7 @@ const MINE_TYPES = {
   "image/png": "png",
 };
 
-const strorage = multer.diskStorage({
+const storage = multer.diskStorage({
   destination: (req, file, callback) => {
     callback(null, "images");
   },
@@ -16,4 +16,4 @@ const strorage = multer.diskStorage({
   },
 });
 
-module.exports = multer({ storage }.single("images"));
+module.exports = multer({ storage: storage }).single("image");
