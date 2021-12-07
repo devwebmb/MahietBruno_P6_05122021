@@ -4,9 +4,11 @@ const bodyParser = require("body-parser");
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
 const path = require("path");
+const helmet = require("helmet");
 
 const app = express();
 
+app.use(helmet());
 // connection base de données
 
 mongoose
