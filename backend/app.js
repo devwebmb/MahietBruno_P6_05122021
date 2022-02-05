@@ -1,3 +1,4 @@
+// imports
 const express = require("express");
 require("dotenv").config();
 const mongoose = require("mongoose");
@@ -9,8 +10,10 @@ const helmet = require("helmet");
 
 const app = express();
 
+//Sécurisation des entêtes http
 app.use(helmet());
-// connection base de données
+
+// Connection base de données
 
 mongoose
   .connect(
@@ -20,7 +23,7 @@ mongoose
   .then(() => console.log("Connexion à MongoDB réussie !"))
   .catch(() => console.log("Connexion à MongoDB échouée !"));
 
-//gestion du cors
+// Paramétrage des en-têtes
 
 app.use((req, res, next) => {
   res.setHeader("Access-Control-Allow-Origin", "*");
@@ -36,10 +39,11 @@ app.use((req, res, next) => {
 });
 
 app.use(bodyParser.json());
-
 app.use("/images", express.static(path.join(__dirname, "images")));
 
+// Routes
 app.use("/api/auth", userRoutes);
 app.use("/api/sauces", sauceRoutes);
 
+// Export
 module.exports = app;

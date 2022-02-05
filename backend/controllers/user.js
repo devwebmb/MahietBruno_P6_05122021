@@ -1,24 +1,29 @@
+// Imports
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 const User = require("../models/User");
 
+// Export des fonctions
+// inscription
 exports.signup = (req, res, next) => {
   bcrypt
-    .hash(req.body.password, 10)
+    .hash(req.body.password, 10) // hachage du mdp
     .then((hash) => {
       const user = new User({
+        // création d'un nouvel utilisateur
         email: req.body.email,
         password: hash,
       });
       user
-        .save()
+        .save() // et enregistrement dans la bdd
         .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
         .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
 
+// connexion
 exports.login = (req, res, next) => {
   User.findOne({ email: req.body.email })
     .then((user) => {

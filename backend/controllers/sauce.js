@@ -1,6 +1,9 @@
+// Imports
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
 
+// Exports des fonctions
+// Obtenir toutes les sauces (read)
 exports.getAllSauces = (req, res, next) => {
   Sauce.find()
     .then((sauces) => {
@@ -9,12 +12,14 @@ exports.getAllSauces = (req, res, next) => {
     .catch((error) => res.status(404).json({ error: error }));
 };
 
+// Obtenir une seule sauce (read)
 exports.getOneSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => res.status(200).json(sauce))
     .catch((error) => res.status(404).json({ error: error }));
 };
 
+// Ajouter une sauce (create)
 exports.addSauce = (req, res, next) => {
   const sauceObject = JSON.parse(req.body.sauce);
   delete sauceObject._id;
@@ -30,6 +35,7 @@ exports.addSauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+// Modifier une sauce (put)
 exports.modifySauce = (req, res, next) => {
   const sauceObject = req.file
     ? {
@@ -47,6 +53,7 @@ exports.modifySauce = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
+// Supprimer une sauce (delete)
 exports.deleteSauce = (req, res, next) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
@@ -60,6 +67,7 @@ exports.deleteSauce = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
+// like ou dislike
 exports.likeOrDislike = (req, res, next) => {
   switch (req.body.like) {
     case 1:
