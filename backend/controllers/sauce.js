@@ -1,6 +1,7 @@
 // Imports
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
+const { assert } = require("console");
 
 // Exports des fonctions
 // Obtenir toutes les sauces (read)
